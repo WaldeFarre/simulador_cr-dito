@@ -141,6 +141,51 @@ function buscarClienteCredito(){
     cmpDatos.innerHTML = contenido;
 }
 
+function calcularCredito(){
+    let cmpResultado = document.getElementById("resultadoCredito");
+
+    if(clienteSeleccionado === null){
+        cmpResultado.className = "rechazado";
+        cmpResultado.innerHTML = "Primero busque un cliente por cédula";
+        return;
+    }
+
+    let monto = recuperarInt("montoCredito");
+    let plazo = recuperarInt("plazoCredito");
+
+    if(isNaN(monto) || monto <= 0 || isNaN(plazo) || plazo <= 0){
+        cmpResultado.className = "rechazado";
+        cmpResultado.innerHTML = "Ingrese un monto y un plazo válidos";
+        return;
+    }
+
+    let disponible = calcularDisponible(clienteSeleccionado.ingresos, clienteSeleccionado.egresos);
+    let capacidad = calcularCapacidadPago(disponible);
+    let interes = calcularInteresSimple(monto, tasaInteres, plazo);
+    let total = calcularTotalPagar(monto, interes);
+    let cuota = calcularCuotaMensual(total, plazo);
+    let aprobado = aprobarCredito(capacidad, cuota);
+
+    montoCalculado = monto;
+    plazoCalculado = plazo;
+    cuotaCalculada = cuota;
+    creditoAprobado = aprobado;
+
+    let contenido = "";
+    contenido += "Capacidad de pago: " + capacidad.toFixed(2) + "<br>";
+    contenido += "Total a pagar: " + total.toFixed(2) + "<br>";
+    contenido += "Cuota mensual: " + cuota.toFixed(2) + "<br>";
+
+    if(aprobado){
+        contenido += "RESULTADO: APROBADO";
+        cmpResultado.className = "aprobado";
+    } else {
+        contenido += "RESULTADO: RECHAZADO";
+        cmpResultado.className = "rechazado";
+    }
+    cmpResultado.innerHTML = contenido;
+}
+
 function limpiar(){
     mostrarTextoEnCaja("cedula", "");
     mostrarTextoEnCaja("nombre", "");
