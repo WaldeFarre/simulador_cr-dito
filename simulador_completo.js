@@ -1,0 +1,128 @@
+  let clientes = [];
+  let creditos = [];
+
+  let tasaInteres = 15;
+  let clienteSeleccionado = null;
+  let cuotaCalculada = 0;
+  let montoCalculado = 0;
+  let plazoCalculado = 0;
+  let creditoAprobado = false;
+
+
+//Para recuperar o mostrar información usar los métodos de la clase utilitarios, puede agregar métodos adicionales en utilitarios
+
+
+// ===================== PARTE 1: NAVEGACIÓN =====================
+
+function ocultarSecciones(){
+    document.getElementById("parametros").classList.remove("activa");
+    document.getElementById("clientes").classList.remove("activa");
+}
+
+function mostrarSeccion(id){
+    ocultarSecciones();
+    document.getElementById(id).classList.add("activa");
+}
+
+
+// ===================== PARTE 2: CONFIGURAR TASA =====================
+
+function guardarTasa(){
+    let tasa = recuperarInt("tasaInteres");
+
+    if(tasa >= 10 && tasa <= 20){
+        tasaInteres = tasa;
+        mostrarTexto("mensajeTasa", "Tasa configurada correctamente: " + tasa + "%");
+    } else {
+        mostrarTexto("mensajeTasa", "La tasa debe estar entre 10% y 20%");
+    }
+}
+
+
+// ===================== PARTE 3: CLIENTES =====================
+
+function guardarCliente(){
+    let cedula = recuperaraTexto("cedula");
+    let nombre = recuperaraTexto("nombre");
+    let apellido = recuperaraTexto("apellido");
+    let ingresos = recuperarFloat("ingresos");
+    let egresos = recuperarFloat("egresos");
+
+    if(cedula === "" || nombre === "" || apellido === "" || isNaN(ingresos) || isNaN(egresos)){
+        mostrarTexto("mensajeCliente", "Debe llenar todos los campos");
+        return;
+    }
+    mostrarTexto("mensajeCliente", "");
+
+    let cliente = buscarCliente(cedula);
+
+    if(cliente === null){
+        let nuevoCliente = {
+            cedula: cedula,
+            nombre: nombre,
+            apellido: apellido,
+            ingresos: ingresos,
+            egresos: egresos
+        };
+        clientes.push(nuevoCliente);
+    } else {
+        cliente.nombre = nombre;
+        cliente.apellido = apellido;
+        cliente.ingresos = ingresos;
+        cliente.egresos = egresos;
+    }
+
+    pintarClientes();
+    limpiar();
+}
+
+function pintarClientes(){
+    let contenidoTabla = "";
+    let cmpTabla = document.getElementById("tablaClientes");
+    let cliente;
+
+    for(let indice = 0; indice < clientes.length; indice++){
+        cliente = clientes[indice];
+        contenidoTabla += "<tr>";
+        contenidoTabla += "<td>" + cliente.cedula + "</td>";
+        contenidoTabla += "<td>" + cliente.nombre + "</td>";
+        contenidoTabla += "<td>" + cliente.apellido + "</td>";
+        contenidoTabla += "<td>" + cliente.ingresos + "</td>";
+        contenidoTabla += "<td>" + cliente.egresos + "</td>";
+        contenidoTabla += `<td><button onclick="seleccionarCliente('` + cliente.cedula + `')">Actualizar</button></td>`;
+        contenidoTabla += "</tr>";
+    }
+    cmpTabla.innerHTML = contenidoTabla;
+}
+
+function buscarCliente(cedula){
+    let cliente;
+
+    for(let indice = 0; indice < clientes.length; indice++){
+        cliente = clientes[indice];
+        if(cliente.cedula === cedula){
+            return cliente;
+        }
+    }
+    return null;
+}
+
+function seleccionarCliente(cedula){
+    let cliente = buscarCliente(cedula);
+    clienteSeleccionado = cliente;
+
+    mostrarTextoEnCaja("cedula", cliente.cedula);
+    mostrarTextoEnCaja("nombre", cliente.nombre);
+    mostrarTextoEnCaja("apellido", cliente.apellido);
+    mostrarTextoEnCaja("ingresos", cliente.ingresos);
+    mostrarTextoEnCaja("egresos", cliente.egresos);
+}
+
+function limpiar(){
+    mostrarTextoEnCaja("cedula", "");
+    mostrarTextoEnCaja("nombre", "");
+    mostrarTextoEnCaja("apellido", "");
+    mostrarTextoEnCaja("ingresos", "");
+    mostrarTextoEnCaja("egresos", "");
+    clienteSeleccionado = null;
+}
