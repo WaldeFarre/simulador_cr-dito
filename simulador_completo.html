@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Sistema de Créditos</title>
-  <script src="funciones.js"></script>
-  <script src="simulador_completo.js"></script>
-  <script src="utilitarios.js"></script>
+  <link rel="stylesheet" href="simulador_completo.css">
 </head>
 <body>
 
@@ -16,6 +14,7 @@
 <nav>
   <button onclick="mostrarSeccion('parametros')">Parámetros</button>
   <button onclick="mostrarSeccion('clientes')">Clientes</button>
+  <button onclick="mostrarSeccion('credito')">Créditos</button>
 </nav>
 
 <section id="parametros" class="activa">
@@ -44,7 +43,6 @@
 
   <button onclick="guardarCliente()">Guardar cliente</button>
   <button onclick="limpiar()">Limpiar</button>
-  <button onclick="mostrarSeccion('credito')">Créditos</button>
 
   <p id="mensajeCliente"></p>
 
@@ -63,30 +61,32 @@
     </tbody>
   </table>
 </section>
-  <section id="credito">
+
+
+<section id="credito">
   <h2>Solicitar Crédito</h2>
- 
+
   <input type="text" id="buscarCedulaCredito">
   <button onclick="buscarClienteCredito()">Buscar cliente</button>
- 
+
   <div id="datosClienteCredito" class="card"></div>
- 
+
   <input type="number" id="montoCredito" >
   <input type="number" id="plazoCredito" >
- 
+
   <br>
- 
+
   <button onclick="calcularCredito()">Calcular crédito</button>
- 
+
   <div id="resultadoCredito"></div>
- 
+
   <button id="btnSolicitarCredito" onclick="solicitarCredito()" disabled>
     Solicitar crédito
   </button>
 </section>
 
 
-
+<script src="funciones.js"></script>
 <script src="simulador_completo.js"></script>
 <script src="utilitarios.js"></script>
 </body>

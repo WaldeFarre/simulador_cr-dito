@@ -1,4 +1,4 @@
-  let clientes = [];
+let clientes = [];
   let creditos = [];
 
   let tasaInteres = 15;
@@ -17,6 +17,7 @@
 function ocultarSecciones(){
     document.getElementById("parametros").classList.remove("activa");
     document.getElementById("clientes").classList.remove("activa");
+    document.getElementById("credito").classList.remove("activa");
 }
 
 function mostrarSeccion(id){
@@ -118,6 +119,17 @@ function seleccionarCliente(cedula){
     mostrarTextoEnCaja("egresos", cliente.egresos);
 }
 
+function limpiar(){
+    mostrarTextoEnCaja("cedula", "");
+    mostrarTextoEnCaja("nombre", "");
+    mostrarTextoEnCaja("apellido", "");
+    mostrarTextoEnCaja("ingresos", "");
+    mostrarTextoEnCaja("egresos", "");
+}
+
+
+// ===================== TALLER PARTE 2: CRÉDITOS =====================
+
 function buscarClienteCredito(){
     let cedula = recuperaraTexto("buscarCedulaCredito");
     let cliente = buscarCliente(cedula);
@@ -184,20 +196,4 @@ function calcularCredito(){
         cmpResultado.className = "rechazado";
     }
     cmpResultado.innerHTML = contenido;
-}
-
-function limpiar(){
-    mostrarTextoEnCaja("cedula", "");
-    mostrarTextoEnCaja("nombre", "");
-    mostrarTextoEnCaja("apellido", "");
-    mostrarTextoEnCaja("ingresos", "");
-    mostrarTextoEnCaja("egresos", "");
-    clienteSeleccionado = null;
-}
-
-
-function ocultarSecciones(){
-    document.getElementById("parametros").classList.remove("activa");
-    document.getElementById("clientes").classList.remove("activa");
-    document.getElementById("credito").classList.remove("activa");
 }
