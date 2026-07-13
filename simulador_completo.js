@@ -126,3 +126,10 @@ function limpiar(){
     mostrarTextoEnCaja("egresos", "");
     clienteSeleccionado = null;
 }
+
+
+function ocultarSecciones(){
+    document.getElementById("parametros").classList.remove("activa");
+    document.getElementById("clientes").classList.remove("activa");
+    document.getElementById("credito").classList.remove("activa");
+}

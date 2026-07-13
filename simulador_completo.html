@@ -44,6 +44,7 @@
 
   <button onclick="guardarCliente()">Guardar cliente</button>
   <button onclick="limpiar()">Limpiar</button>
+  <button onclick="mostrarSeccion('credito')">Créditos</button>
 
   <p id="mensajeCliente"></p>
 
@@ -61,6 +62,27 @@
     <tbody id="tablaClientes">
     </tbody>
   </table>
+</section>
+  <section id="credito">
+  <h2>Solicitar Crédito</h2>
+ 
+  <input type="text" id="buscarCedulaCredito">
+  <button onclick="buscarClienteCredito()">Buscar cliente</button>
+ 
+  <div id="datosClienteCredito" class="card"></div>
+ 
+  <input type="number" id="montoCredito" >
+  <input type="number" id="plazoCredito" >
+ 
+  <br>
+ 
+  <button onclick="calcularCredito()">Calcular crédito</button>
+ 
+  <div id="resultadoCredito"></div>
+ 
+  <button id="btnSolicitarCredito" onclick="solicitarCredito()" disabled>
+    Solicitar crédito
+  </button>
 </section>
 
 
