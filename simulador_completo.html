@@ -13,7 +13,7 @@
 
 <nav>
   <button onclick="mostrarSeccion('parametros')">Parámetros</button>
-<button onclick="mostrarSeccion('clientes')">Clientes</button>
+  <button onclick="mostrarSeccion('clientes')">Clientes</button>
 </nav>
 
 <section id="parametros" class="activa">
@@ -37,14 +37,11 @@
   <input type="text" id="apellido" placeholder="Apellido">
   <input type="number" id="ingresos" placeholder="Ingresos">
   <input type="number" id="egresos" placeholder="Egresos">
-  <button onclick="guardarTasa()">Guardar tasa</button>
+
   <br>
 
   <button onclick="guardarCliente()">Guardar cliente</button>
-<button onclick="limpiar()">Limpiar</button>
-
-<tbody id="tablaClientes">
-</tbody>
+  <button onclick="limpiar()">Limpiar</button>
 
   <p id="mensajeCliente"></p>
 
