@@ -18,6 +18,7 @@ function ocultarSecciones(){
     document.getElementById("parametros").classList.remove("activa");
     document.getElementById("clientes").classList.remove("activa");
     document.getElementById("credito").classList.remove("activa");
+    document.getElementById("listaCreditos").classList.remove("activa");
 }
 
 function mostrarSeccion(id){
@@ -156,6 +157,8 @@ function buscarClienteCredito(){
 function calcularCredito(){
     let cmpResultado = document.getElementById("resultadoCredito");
 
+    document.getElementById("btnSolicitarCredito").disabled = true;
+
     if(clienteSeleccionado === null){
         cmpResultado.className = "rechazado";
         cmpResultado.innerHTML = "Primero busque un cliente por cédula";
@@ -191,9 +194,68 @@ function calcularCredito(){
     if(aprobado){
         contenido += "RESULTADO: APROBADO";
         cmpResultado.className = "aprobado";
+        document.getElementById("btnSolicitarCredito").disabled = false;
     } else {
         contenido += "RESULTADO: RECHAZADO";
         cmpResultado.className = "rechazado";
+        document.getElementById("btnSolicitarCredito").disabled = true;
     }
     cmpResultado.innerHTML = contenido;
+}
+
+
+// ===================== TALLER PARTE 3: HISTORIAL DE CRÉDITOS =====================
+
+function solicitarCredito(){
+    let credito = {
+        cedula: clienteSeleccionado.cedula,
+        nombre: clienteSeleccionado.nombre,
+        apellido: clienteSeleccionado.apellido,
+        monto: montoCalculado,
+        tasa: tasaInteres,
+        plazo: plazoCalculado,
+        cuota: cuotaCalculada
+    };
+
+    creditos.push(credito);
+    document.getElementById("btnSolicitarCredito").disabled = true;
+}
+
+function buscarCreditos(cedula){
+    let encontrados = [];
+    let credito;
+
+    for(let indice = 0; indice < creditos.length; indice++){
+        credito = creditos[indice];
+        if(credito.cedula === cedula){
+            encontrados.push(credito);
+        }
+    }
+    return encontrados;
+}
+
+function pintarCreditos(listaCreditos){
+    let contenidoTabla = "";
+    let cmpTabla = document.getElementById("tablaCreditos");
+    let credito;
+
+    for(let indice = 0; indice < listaCreditos.length; indice++){
+        credito = listaCreditos[indice];
+        contenidoTabla += "<tr>";
+        contenidoTabla += "<td>" + credito.cedula + "</td>";
+        contenidoTabla += "<td>" + credito.nombre + "</td>";
+        contenidoTabla += "<td>" + credito.apellido + "</td>";
+        contenidoTabla += "<td>" + credito.monto + "</td>";
+        contenidoTabla += "<td>" + credito.tasa + "%</td>";
+        contenidoTabla += "<td>" + credito.plazo + " años</td>";
+        contenidoTabla += "<td>" + credito.cuota.toFixed(2) + "</td>";
+        contenidoTabla += "</tr>";
+    }
+    cmpTabla.innerHTML = contenidoTabla;
+}
+
+function buscarCreditosCliente(){
+    let cedula = recuperaraTexto("buscarCedulaListado");
+    let encontrados = buscarCreditos(cedula);
+    pintarCreditos(encontrados);
 }

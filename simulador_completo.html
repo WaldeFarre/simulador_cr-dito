@@ -15,6 +15,7 @@
   <button onclick="mostrarSeccion('parametros')">Parámetros</button>
   <button onclick="mostrarSeccion('clientes')">Clientes</button>
   <button onclick="mostrarSeccion('credito')">Créditos</button>
+  <button onclick="mostrarSeccion('listaCreditos')">Créditos Registrados</button>
 </nav>
 
 <section id="parametros" class="activa">
@@ -81,10 +82,34 @@
   <div id="resultadoCredito"></div>
 
   <button id="btnSolicitarCredito" onclick="solicitarCredito()" disabled>
-    Solicitar crédito
+    Asignar Crédito
   </button>
 </section>
 
+
+<section id="listaCreditos">
+  <h2>Créditos Registrados</h2>
+
+  <input type="text" id="buscarCedulaListado" >
+  <button onclick="buscarCreditosCliente()">Buscar</button>
+  <button onclick="pintarCreditos(creditos)">Ver todos</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Cédula</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Monto</th>
+        <th>Tasa</th>
+        <th>Plazo</th>
+        <th>Cuota</th>
+      </tr>
+    </thead>
+    <tbody id="tablaCreditos">
+    </tbody>
+  </table>
+</section>
 
 <script src="funciones.js"></script>
 <script src="simulador_completo.js"></script>
